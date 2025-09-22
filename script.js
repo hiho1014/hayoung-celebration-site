@@ -23,19 +23,36 @@
   let stepIndex = -1; // -1: 시작 전, 0..3
   let effectActive = false;
 
-  const successSteps = [
-    { type: 'effect', name: 'clap' },
-    { type: 'character', img: './image/이미지1 관계자-배경 제거.png', name: '관계자', text: '캬~ 3시 넘어 왔는데 완성하다니~\n초대박바리박박슨입니다.' },
-    { type: 'character', img: './image/이미지2 커서맛피아-배경 제거.png', name: '커서맛피아', text: '(누군신지 모르지만) 하영킁!\n대단핑 대단핑 최고최최고입니다~~~!!' },
-    { type: 'character', img: './image/이미지3 여러분-배경 제거.png', name: '여러분', text: '5252 믿고 있었다고요~\n젠장!!!', wide: true },
-  ];
+  // 버전 상태
+  let isV2 = false;
 
-  const failSteps = [
-    { type: 'effect', name: 'sad' },
-    { type: 'character', img: './image/이미지1 관계자-배경 제거.png', name: '관계자', text: '참가에 의의를 두시는 걸로 ^^;;' },
-    { type: 'character', img: './image/이미지2 커서맛피아-배경 제거.png', name: '커서맛피아', text: '(누군신지 모르지만) 하영킁,\n실망 또는 바늘망입니다 ㅎㅎ' },
-    { type: 'character', img: './image/이미지3 여러분-배경 제거.png', name: '여러분', text: '발표가 너무 길어지고 있어요^^;;', wide: true },
-  ];
+  function getSuccessSteps() {
+    return isV2 ? [
+      { type: 'effect', name: 'clap' },
+      { type: 'character', img: './image/버전2/이미지1 지피터스.png', name: '지피터스', text: '하이호님 베스트 발표 잘 들었습니다~~' },
+      { type: 'character', img: './image/버전2/이미지2 블로그.png', name: '블로그 스터디', text: '캬 블로그뽕 취한닷,,,' },
+      { type: 'character', img: './image/이미지3 여러분-배경 제거.png', name: '여러분', text: '5252 믿고 있었다고요~\n젠장!!!', wide: true },
+    ] : [
+      { type: 'effect', name: 'clap' },
+      { type: 'character', img: './image/이미지1 관계자-배경 제거.png', name: '관계자', text: '캬~ 3시 넘어 왔는데 완성하다니~\n초대박바리박박슨입니다.' },
+      { type: 'character', img: './image/이미지2 커서맛피아-배경 제거.png', name: '커서맛피아', text: '(누군신지 모르지만) 하영킁!\n대단핑 대단핑 최고최최고입니다~~~!!' },
+      { type: 'character', img: './image/이미지3 여러분-배경 제거.png', name: '여러분', text: '5252 믿고 있었다고요~\n젠장!!!', wide: true },
+    ];
+  }
+
+  function getFailSteps() {
+    return isV2 ? [
+      { type: 'effect', name: 'sad' },
+      { type: 'character', img: './image/버전2/이미지1 지피터스.png', name: '지피터스', text: '지피터스 하산하지 마시고 무한 뺑뻉이 치십시오!!' },
+      { type: 'character', img: './image/버전2/이미지2 블로그.png', name: '블로그 스터디', text: '하이호님,,, 실망 또는 바늘망입니다 ㅎ' },
+      { type: 'character', img: './image/이미지3 여러분-배경 제거.png', name: '여러분', text: '발표가 너무 길어지고 있어요^^;;', wide: true },
+    ] : [
+      { type: 'effect', name: 'sad' },
+      { type: 'character', img: './image/이미지1 관계자-배경 제거.png', name: '관계자', text: '참가에 의의를 두시는 걸로 ^^;;' },
+      { type: 'character', img: './image/이미지2 커서맛피아-배경 제거.png', name: '커서맛피아', text: '(누군신지 모르지만) 하영킁,\n실망 또는 바늘망입니다 ㅎㅎ' },
+      { type: 'character', img: './image/이미지3 여러분-배경 제거.png', name: '여러분', text: '발표가 너무 길어지고 있어요^^;;', wide: true },
+    ];
+  }
 
   function resetStage() {
     stage.innerHTML = '';
@@ -118,7 +135,7 @@
 
   function nextStep() {
     if (!mode || effectActive) return;
-    const steps = mode === 'success' ? successSteps : failSteps;
+    const steps = mode === 'success' ? getSuccessSteps() : getFailSteps();
     stepIndex++;
     if (stepIndex >= steps.length) {
       // 끝: 초기화
@@ -150,7 +167,7 @@
   stage.addEventListener('click', () => {
     if (!mode) return; // 모드 없으면 무시
 
-    const steps = mode === 'success' ? successSteps : failSteps;
+    const steps = mode === 'success' ? getSuccessSteps() : getFailSteps();
     const current = steps[stepIndex];
     // 캐릭터가 보여진 상태에서 클릭하면 지우고 다음으로
     if (current && current.type === 'character') {
@@ -160,6 +177,47 @@
     }
     nextStep();
   });
+
+  // 버전 토글 기능 추가
+  function switchToV2() {
+    isV2 = true;
+    document.querySelector('h1').textContent = '하이호는 발표를 잘 준비했나요?';
+    btnSuccess.textContent = '네~!';
+    btnFail.textContent = '아뇹,,';
+    resetStage();
+    mode = null;
+  }
+
+  function switchToV1() {
+    isV2 = false;
+    document.querySelector('h1').textContent = '하영이는 할 일을 완료했나요?';
+    btnSuccess.textContent = '완료';
+    btnFail.textContent = '실패';
+    resetStage();
+    mode = null;
+  }
+
+  // 버전 토글 버튼 생성
+  const versionToggle = document.createElement('div');
+  versionToggle.className = 'version-toggle';
+  versionToggle.innerHTML = `
+    <button id="btn-v1" class="version-btn active">버전1</button>
+    <button id="btn-v2" class="version-btn">버전2</button>
+  `;
+  document.body.appendChild(versionToggle);
+
+  document.getElementById('btn-v1').addEventListener('click', () => {
+    document.getElementById('btn-v1').classList.add('active');
+    document.getElementById('btn-v2').classList.remove('active');
+    switchToV1();
+  });
+
+  document.getElementById('btn-v2').addEventListener('click', () => {
+    document.getElementById('btn-v2').classList.add('active');
+    document.getElementById('btn-v1').classList.remove('active');
+    switchToV2();
+  });
+
 })();
 
 

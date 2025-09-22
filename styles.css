@@ -208,6 +208,36 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* 버전 토글 */
+.version-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+.version-btn {
+  appearance: none;
+  border: 2px solid #e5e7eb;
+  background: #ffffff;
+  color: #6b7280;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+}
+.version-btn:hover { border-color: #d1d5db; color: #374151; }
+.version-btn.active {
+  border-color: #7b2cbf;
+  background: #7b2cbf;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(123,44,191,.25);
+}
+
 /* 반응형 */
 @media (max-width: 640px) {
   .site-header { margin-top: 24px; }
