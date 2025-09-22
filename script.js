@@ -12,7 +12,7 @@
   const now = new Date();
   const formattedDate = new Intl.DateTimeFormat('ko-KR', { year:'numeric', month:'long', day:'numeric', weekday:'long' }).format(now);
   if (madeDateEl) madeDateEl.textContent = formattedDate;
-  if (madeTimeEl) madeTimeEl.textContent = '약 3시 30분 ~ 5시 발표 전까지';
+  if (madeTimeEl) madeTimeEl.textContent = '8시 51분 ~ 발표 전까지';
   if (todayEl) todayEl.remove();
 
   // 소개 문구는 사용자 요청에 따라 비웁니다
@@ -23,8 +23,8 @@
   let stepIndex = -1; // -1: 시작 전, 0..3
   let effectActive = false;
 
-  // 버전 상태
-  let isV2 = false;
+  // 버전 상태 - 기본값을 V2로 변경
+  let isV2 = true;
 
   function getSuccessSteps() {
     return isV2 ? [
@@ -224,12 +224,12 @@
     }
   }
 
-  // 버전 토글 버튼 생성
+  // 버전 토글 버튼 생성 - 기본값 V2로 변경
   const versionToggle = document.createElement('div');
   versionToggle.className = 'version-toggle';
   versionToggle.innerHTML = `
-    <button id="btn-v1" class="version-btn active">버전1</button>
-    <button id="btn-v2" class="version-btn">버전2</button>
+    <button id="btn-v1" class="version-btn">버전1</button>
+    <button id="btn-v2" class="version-btn active">버전2</button>
   `;
   document.body.appendChild(versionToggle);
 
