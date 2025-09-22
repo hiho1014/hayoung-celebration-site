@@ -208,7 +208,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 버전 토글 */
+/* 버전 토글 - 원래 스타일과 동일하게 */
 .version-toggle {
   position: fixed;
   bottom: 20px;
@@ -219,23 +219,23 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 }
 .version-btn {
   appearance: none;
-  border: 2px solid #e5e7eb;
-  background: #ffffff;
-  color: #6b7280;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 14px;
+  border: 2px solid #111;
+  background: #fff;
+  color: #111;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
   cursor: pointer;
-  transition: all .2s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  transition: transform .08s ease;
 }
-.version-btn:hover { border-color: #d1d5db; color: #374151; }
+.version-btn:hover { transform: translateY(-1px); }
+.version-btn:active { transform: translateY(0); }
 .version-btn.active {
-  border-color: #7b2cbf;
-  background: #7b2cbf;
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(123,44,191,.25);
+  background: #111;
+  color: #fff;
 }
 
 /* 반응형 */
