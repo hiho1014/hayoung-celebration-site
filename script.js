@@ -245,6 +245,9 @@
     switchToV2();
   });
 
+  // 페이지 로드시 기본값으로 버전1 내용 설정
+  updateSectionContent();
+
 })();
 
 
