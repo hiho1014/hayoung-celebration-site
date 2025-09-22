@@ -206,7 +206,7 @@
 
     if (isV2) {
       // 버전2 내용
-      creatorDesc.textContent = '지피터스 베스트 발표용 버전.';
+      creatorDesc.textContent = '블로그와 개발에 열정을 가진 하이호. 지피터스 베스트 발표를 위해 특별히 준비된 버전입니다.';
       if (madeTimeEl) madeTimeEl.textContent = '8시 51분 ~ 발표 전까지';
       aboutList.innerHTML = `
         <li>2025년 9월 22일 지피터스 베스트 발표용 데모</li>
