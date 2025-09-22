@@ -202,10 +202,12 @@
   function updateSectionContent() {
     const creatorDesc = document.querySelector('.creator-desc');
     const aboutList = document.querySelector('.about-list');
+    const madeTimeEl = document.getElementById('made-time');
 
     if (isV2) {
       // 버전2 내용
       creatorDesc.textContent = '지피터스 베스트 발표용 버전.';
+      if (madeTimeEl) madeTimeEl.textContent = '8시 51분 ~ 발표 전까지';
       aboutList.innerHTML = `
         <li>2025년 9월 22일 지피터스 베스트 발표용 데모</li>
         <li>핵심 아이디어: 클릭으로 진행되는 축하/낙담 시퀀스</li>
@@ -213,6 +215,7 @@
     } else {
       // 버전1 내용
       creatorDesc.textContent = '분석적이고 실험을 즐기는 제작자. 작은 인터랙션으로 발표 경험을 더 즐겁게 만듭니다.';
+      if (madeTimeEl) madeTimeEl.textContent = '약 3시 30분 ~ 5시 발표 전까지';
       aboutList.innerHTML = `
         <li>2025년 9월 22일 패스트캠퍼스+커서맛피아 해커톤 데모</li>
         <li>핵심 아이디어: 클릭으로 진행되는 축하/낙담 시퀀스</li>
