@@ -184,6 +184,10 @@
     document.querySelector('h1').textContent = '하이호는 발표를 잘 준비했나요?';
     btnSuccess.textContent = '네~!';
     btnFail.textContent = '아뇹,,';
+
+    // 섹션2 내용도 버전2로 변경
+    updateSectionContent();
+
     resetStage();
     mode = null;
   }
@@ -193,8 +197,34 @@
     document.querySelector('h1').textContent = '하영이는 할 일을 완료했나요?';
     btnSuccess.textContent = '완료';
     btnFail.textContent = '실패';
+
+    // 섹션2 내용도 버전1로 변경
+    updateSectionContent();
+
     resetStage();
     mode = null;
+  }
+
+  function updateSectionContent() {
+    const creatorDesc = document.querySelector('.creator-desc');
+    const aboutList = document.querySelector('.about-list');
+
+    if (isV2) {
+      // 버전2 내용
+      creatorDesc.textContent = '지피터스 베스트 발표용 버전.';
+      aboutList.innerHTML = `
+        <li>2025년 9월 22일 지피터스 베스트 발표용 데모</li>
+        <li>핵심 아이디어: 클릭으로 진행되는 축하/낙담 시퀀스</li>
+      `;
+    } else {
+      // 버전1 내용
+      creatorDesc.textContent = '분석적이고 실험을 즐기는 제작자. 작은 인터랙션으로 발표 경험을 더 즐겁게 만듭니다.';
+      aboutList.innerHTML = `
+        <li>2025년 9월 22일 패스트캠퍼스+커서맛피아 해커톤 데모</li>
+        <li>핵심 아이디어: 클릭으로 진행되는 축하/낙담 시퀀스</li>
+        <li>타임라인: 14시 합류 → 안경 이슈 귀가 → 15:30 재시작 → 완성</li>
+      `;
+    }
   }
 
   // 버전 토글 버튼 생성
