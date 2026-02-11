@@ -5,6 +5,7 @@
       title: '하영이는 할 일을 완료했나요?',
       btnSuccess: '완료',
       btnFail: '실패',
+      madeDate: '2025년 9월 22일',
       madeTime: '약 3시 30분 ~ 5시 발표 전까지',
       creatorDesc: '분석적이고 실험을 즐기는 제작자. 작은 인터랙션으로 발표 경험을 더 즐겁게 만듭니다.',
       aboutList: `
@@ -33,6 +34,7 @@
       title: '하이호는 발표를 잘 준비했나요?',
       btnSuccess: '네~!',
       btnFail: '아뇹,,',
+      madeDate: '2025년 9월 22일',
       madeTime: '8시 51분 ~ 발표 전까지',
       creatorDesc: '블로그와 개발에 열정을 가진 하이호. 지피터스 베스트 발표를 위해 특별히 준비된 버전입니다.',
       aboutList: `
@@ -60,10 +62,11 @@
       title: '하이호는 발표를 잘 준비했나요?',
       btnSuccess: '네~!',
       btnFail: '아뇹,,',
-      madeTime: '8시 51분 ~ 발표 전까지',
-      creatorDesc: '블로그와 개발에 열정을 가진 하이호. 지피터스 베스트 발표를 위해 특별히 준비된 버전입니다.',
+      madeDate: '2026년 2월 2일',
+      madeTime: '모름',
+      creatorDesc: '앱 개발에 열정을 가진 하이호. 안드로이드 스터디 발표를 위해 특별히 준비된 버전입니다.',
       aboutList: `
-        <li>2025년 9월 22일 지피터스 베스트 발표용 데모</li>
+        <li>2026년 2월 2일 안드로이드 스터디 발표용 데모</li>
         <li>핵심 아이디어: 클릭으로 진행되는 축하/낙담 시퀀스</li>
       `,
       // 버전 메타데이터
@@ -110,9 +113,7 @@
   let currentVersion = 'v3'; // Default to V3 as requested
 
   // --- INITIALIZATION ---
-  const now = new Date();
-  const formattedDate = new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }).format(now);
-  if (madeDateEl) madeDateEl.textContent = formattedDate;
+  // Remove old elements
   if (todayEl) todayEl.remove();
   if (eventInfo) eventInfo.innerHTML = '';
 
@@ -239,6 +240,7 @@
     if (btnFail) btnFail.textContent = config.btnFail;
     if (creatorDescEl) creatorDescEl.textContent = config.creatorDesc;
     if (aboutListEl) aboutListEl.innerHTML = config.aboutList;
+    if (madeDateEl) madeDateEl.textContent = config.madeDate;
     if (madeTimeEl) madeTimeEl.textContent = config.madeTime;
 
     // Reset State
