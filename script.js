@@ -13,10 +13,9 @@
         <li>타임라인: 14시 합류 → 안경 이슈 귀가 → 15:30 재시작 → 완성</li>
       `,
       // 버전 메타데이터
-      versionName: '버전 1',
+      category: '할일체크',
+      eventDesc: '패스트캠퍼스 해커톤 데모',
       date: '2025-09-22',
-      event: '패스트캠퍼스 해커톤',
-      description: '첫 번째 버전. 해커톤 데모용',
       successSteps: [
         { type: 'effect', name: 'clap' },
         { type: 'character', img: './image/이미지1 관계자-배경 제거.png', name: '관계자', text: '캬~ 3시 넘어 왔는데 완성하다니~\n초대박바리박박슨입니다.' },
@@ -41,10 +40,9 @@
         <li>핵심 아이디어: 클릭으로 진행되는 축하/낙담 시퀀스</li>
       `,
       // 버전 메타데이터
-      versionName: '버전 2',
+      category: '발표준비',
+      eventDesc: '블로그 스터디 베스트 발표',
       date: '2025-09-22',
-      event: '지피터스 베스트 발표',
-      description: '블로그 스터디 버전',
       successSteps: [
         { type: 'effect', name: 'clap' },
         { type: 'character', img: './image/버전2/이미지1 지피터스.png', name: '지피터스', text: '하이호님 베스트 발표 잘 들었습니다~~' },
@@ -69,10 +67,9 @@
         <li>핵심 아이디어: 클릭으로 진행되는 축하/낙담 시퀀스</li>
       `,
       // 버전 메타데이터
-      versionName: '버전 3',
+      category: '발표준비',
+      eventDesc: '안드로이드 스터디 발표',
       date: '2026-02-02',
-      event: '안드로이드 스터디 발표',
-      description: '안드로이드 스터디 버전',
       successSteps: [
         { type: 'effect', name: 'clap' },
         { type: 'character', img: './image/버전2/이미지1 지피터스.png', name: '지피터스', text: '하이호님 베스트 발표 잘 들었습니다~~' },
@@ -248,9 +245,14 @@
     resetStage();
     mode = null;
 
-    // Update Toggle Buttons UI
-    document.querySelectorAll('.version-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(`btn-${version}`).classList.add('active');
+    // Update version list items active state
+    document.querySelectorAll('.version-item').forEach(item => {
+      if (item.dataset.version === version) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
   }
 
   // --- EVENT LISTENERS ---
@@ -306,9 +308,9 @@
     item.dataset.version = key;
 
     item.innerHTML = `
-      <div class="version-item-title">${version.versionName}</div>
-      <div class="version-item-meta">${version.date} · ${version.event}</div>
-      <div class="version-item-desc">${version.description}</div>
+      <div class="version-item-title">[${version.category}]</div>
+      <div class="version-item-meta">${version.eventDesc}</div>
+      <div class="version-item-desc">${version.date}</div>
     `;
 
     versionList.appendChild(item);
