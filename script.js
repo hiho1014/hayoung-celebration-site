@@ -308,9 +308,8 @@
     item.dataset.version = key;
 
     item.innerHTML = `
-      <div class="version-item-title">[${version.category}]</div>
+      <div class="version-item-title">[${version.category}] ${version.date}</div>
       <div class="version-item-meta">${version.eventDesc}</div>
-      <div class="version-item-desc">${version.date}</div>
     `;
 
     versionList.appendChild(item);
