@@ -12,6 +12,11 @@
         <li>핵심 아이디어: 클릭으로 진행되는 축하/낙담 시퀀스</li>
         <li>타임라인: 14시 합류 → 안경 이슈 귀가 → 15:30 재시작 → 완성</li>
       `,
+      // 버전 메타데이터
+      versionName: '버전 1',
+      date: '2025-09-22',
+      event: '패스트캠퍼스 해커톤',
+      description: '첫 번째 버전. 해커톤 데모용',
       successSteps: [
         { type: 'effect', name: 'clap' },
         { type: 'character', img: './image/이미지1 관계자-배경 제거.png', name: '관계자', text: '캬~ 3시 넘어 왔는데 완성하다니~\n초대박바리박박슨입니다.' },
@@ -35,6 +40,11 @@
         <li>2025년 9월 22일 지피터스 베스트 발표용 데모</li>
         <li>핵심 아이디어: 클릭으로 진행되는 축하/낙담 시퀀스</li>
       `,
+      // 버전 메타데이터
+      versionName: '버전 2',
+      date: '2025-09-22',
+      event: '지피터스 베스트 발표',
+      description: '블로그 스터디 버전',
       successSteps: [
         { type: 'effect', name: 'clap' },
         { type: 'character', img: './image/버전2/이미지1 지피터스.png', name: '지피터스', text: '하이호님 베스트 발표 잘 들었습니다~~' },
@@ -58,6 +68,11 @@
         <li>2025년 9월 22일 지피터스 베스트 발표용 데모</li>
         <li>핵심 아이디어: 클릭으로 진행되는 축하/낙담 시퀀스</li>
       `,
+      // 버전 메타데이터
+      versionName: '버전 3',
+      date: '2026-02-02',
+      event: '안드로이드 스터디 발표',
+      description: '안드로이드 스터디 버전',
       successSteps: [
         { type: 'effect', name: 'clap' },
         { type: 'character', img: './image/버전2/이미지1 지피터스.png', name: '지피터스', text: '하이호님 베스트 발표 잘 들었습니다~~' },
@@ -267,23 +282,97 @@
     nextStep();
   });
 
-  // Create Version Toggle Button
-  const versionToggle = document.createElement('div');
-  versionToggle.className = 'version-toggle';
-  versionToggle.innerHTML = `
-    <button id="btn-v1" class="version-btn">버전1</button>
-    <button id="btn-v2" class="version-btn">버전2</button>
-    <button id="btn-v3" class="version-btn active">버전3</button>
-  `;
-  // Remove old toggle if exists (safety)
-  const oldToggle = document.querySelector('.version-toggle');
-  if (oldToggle) oldToggle.remove();
+  // Create Floating Button
+  const floatBtn = document.createElement('button');
+  floatBtn.className = 'version-float-btn';
+  floatBtn.innerHTML = '💬';
+  floatBtn.setAttribute('aria-label', '버전 선택');
 
-  document.body.appendChild(versionToggle);
+  // Create Version List Container
+  const listContainer = document.createElement('div');
+  listContainer.className = 'version-list-container';
 
-  document.getElementById('btn-v1').addEventListener('click', () => switchVersion('v1'));
-  document.getElementById('btn-v2').addEventListener('click', () => switchVersion('v2'));
-  document.getElementById('btn-v3').addEventListener('click', () => switchVersion('v3'));
+  const versionList = document.createElement('ul');
+  versionList.className = 'version-list';
+
+  // Generate version list items
+  Object.keys(CONFIG).forEach(key => {
+    if (key === 'effects') return; // Skip effects config
+
+    const version = CONFIG[key];
+    const item = document.createElement('li');
+    item.className = 'version-item';
+    if (key === currentVersion) item.classList.add('active');
+    item.dataset.version = key;
+
+    item.innerHTML = `
+      <div class="version-item-title">${version.versionName}</div>
+      <div class="version-item-meta">${version.date} · ${version.event}</div>
+      <div class="version-item-desc">${version.description}</div>
+    `;
+
+    versionList.appendChild(item);
+  });
+
+  listContainer.appendChild(versionList);
+
+  // Create Overlay
+  const versionOverlay = document.createElement('div');
+  versionOverlay.className = 'version-overlay';
+
+  // Remove old elements if exists
+  const oldFloat = document.querySelector('.version-float-btn');
+  const oldList = document.querySelector('.version-list-container');
+  const oldOverlay = document.querySelector('.version-overlay');
+  if (oldFloat) oldFloat.remove();
+  if (oldList) oldList.remove();
+  if (oldOverlay) oldOverlay.remove();
+
+  document.body.appendChild(floatBtn);
+  document.body.appendChild(listContainer);
+  document.body.appendChild(versionOverlay);
+
+  // Toggle list
+  let isListOpen = false;
+  function toggleList() {
+    isListOpen = !isListOpen;
+    listContainer.classList.toggle('open', isListOpen);
+    versionOverlay.classList.toggle('visible', isListOpen);
+  }
+
+  function closeList() {
+    isListOpen = false;
+    listContainer.classList.remove('open');
+    versionOverlay.classList.remove('visible');
+  }
+
+  // Event Listeners
+  floatBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleList();
+  });
+
+  versionOverlay.addEventListener('click', closeList);
+
+  versionList.addEventListener('click', (e) => {
+    const item = e.target.closest('.version-item');
+    if (!item) return;
+
+    const version = item.dataset.version;
+    switchVersion(version);
+    closeList();
+
+    // Update active state
+    document.querySelectorAll('.version-item').forEach(el => el.classList.remove('active'));
+    item.classList.add('active');
+  });
+
+  // ESC key to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isListOpen) {
+      closeList();
+    }
+  });
 
   // Initialize view: V3 default
   switchVersion(currentVersion);
